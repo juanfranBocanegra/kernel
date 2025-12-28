@@ -1,6 +1,8 @@
 bits 16
 org 0x7c00
 
+KERNEL_SIZE_DWORDS equ 2560 / 4  ; 5 sectores de 512 bytes
+
 _start:
     ; 1. Configurar segmentos
     cli
@@ -59,7 +61,12 @@ init_pm:
     mov fs, ax
     mov gs, ax
     mov ss, ax
-    mov esp, 0x90000     ; Pila en 0x90000
+    mov esp, 0x00200000
+
+    mov esi, 0x00008000
+    mov edi, 0x00100000
+    mov ecx, KERNEL_SIZE_DWORDS   ; tamaño / 4
+    rep movsd
     
     ; 10. Opcional: Limpiar pantalla modo 32-bit
     call clear_screen_32
@@ -68,7 +75,7 @@ init_pm:
     call print_pm
     
     ; 12. Saltar al kernel (ASUME que el kernel es código 32-bit)
-    jmp 0x8000
+    jmp 0x00100000
 
 ; ============================================
 ; FUNCIONES 32-BIT
