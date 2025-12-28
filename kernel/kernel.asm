@@ -1,5 +1,5 @@
 bits 32
-
+org 0x8000
 global _start
 
 
@@ -25,7 +25,6 @@ _start:
     
     ; 2. Imprimir mensaje
     mov esi, msg_kernel
-    add esi, 0x8000
     mov edi, VIDEO_MEMORY
     call print_string
 
@@ -38,9 +37,7 @@ _start:
     ; Llamar a la función principal en C
    
     
-    ; Si vuelve (no debería)
-    cli
-    hlt
+
 
     
     

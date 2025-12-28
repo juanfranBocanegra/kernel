@@ -19,7 +19,7 @@ _start:
     ; 3. Cargar kernel desde disco
     mov ax, 0x0201        ; AH=02h (read), AL=5 sectores
     mov ch, 0             ; Cylinder 0
-    mov cl, 3             ; Sector 2
+    mov cl, 2             ; Sector 2
     mov dh, 0             ; Head 0
     mov bx, 0x8000        ; ES:BX = 0x0000:0x8000
     
